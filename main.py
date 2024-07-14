@@ -1,11 +1,8 @@
-# This example requires the 'message_content' privileged intents
-
 import os
 import discord
 from discord.ext import commands
 from flask import Flask, request
 import asyncio
-import threading
 
 intents = discord.Intents.default()
 intents.message_content = True
@@ -83,13 +80,11 @@ async def send_discord_message(channel_id, novel_title, chapter_number, chapter_
         message_content = f"{role.mention if role else ''}"
         await channel.send(content=message_content, embed=embed)
 
-def run_flask():
-    app.run(host='0.0.0.0', port=5000, debug=False)
+def start_bot():
+    bot.run(os.environ["DISCORD_TOKEN"])
 
 if __name__ == '__main__':
-    # Start Flask in a separate thread
-    flask_thread = threading.Thread(target=run_flask)
-    flask_thread.start()
-    
-    # Run the Discord bot
-    bot.run(os.environ["DISCORD_TOKEN"])
+    import threading
+    bot_thread = threading.Thread(target=start_bot)
+    bot_thread.start()
+    app.run(host='0.0.0.0', port=5000, debug=False)
