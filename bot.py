@@ -1,12 +1,11 @@
-# This example requires the 'message_content' privileged intents
-
-import os
 import discord
 from discord.ext import commands
 from flask import Flask, request
 import asyncio
 import threading
+import os
 
+# Discord bot setup
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
@@ -22,14 +21,6 @@ CHANNEL_IDS = {
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
-
-@bot.command()
-async def ping(ctx):
-    await ctx.send('pong')
-
-@bot.command()
-async def hello(ctx):
-    await ctx.send("Choo choo! 🚅")
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
@@ -82,6 +73,8 @@ async def send_discord_message(channel_id, novel_title, chapter_number, chapter_
         message_content = f"{role.mention if role else ''}"
         await channel.send(content=message_content, embed=embed)
 
+# ... existing code ...
+
 def run_flask():
     app.run(host='0.0.0.0', port=5000)
 
@@ -91,4 +84,5 @@ if __name__ == '__main__':
     flask_thread.start()
     
     # Run the Discord bot
-    bot.run(os.environ["DISCORD_TOKEN"])
+    # bot.run('FByd1Uyr8eNxA5tnc7Ix0gMKhjE-aZpr') # secret token
+bot.run(os.environ["DISCORD_TOKEN"])
