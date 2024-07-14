@@ -22,6 +22,7 @@ CHANNEL_IDS = {
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
+    print(f'Bot address: {bot.user.id}')
 
 @bot.command()
 async def ping(ctx):
