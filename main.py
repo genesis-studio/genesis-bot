@@ -84,7 +84,7 @@ async def send_discord_message(channel_id, novel_title, chapter_number, chapter_
         await channel.send(content=message_content, embed=embed)
 
 def run_flask():
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5000, debug=False)
 
 if __name__ == '__main__':
     # Start Flask in a separate thread
